@@ -11,7 +11,7 @@ class Person {
     }
     getName() { return this.name; }
     getCPF() { return this.CPF; }
-    getDateOfBirth() { return this.dateOfBirth.toLocaleDateString('pt-BR'); }
+    getDateOfBirth() { return this.dateOfBirth.toLocaleString('pt-BR'); }
     setName(name) {
         this.name = name;
     }
@@ -23,7 +23,7 @@ class Person {
     }
     // Método sobrescrito em subclasses
     displayData() {
-        return `Nome: ${this.name}, CPF: ${this.CPF}`;
+        return `Nome: ${this.name} \n CPF: ${this.CPF} \n Data de Nascimento: ${this.dateOfBirth.toLocaleDateString(`pt-br`)} \n`;
     }
 }
 exports.default = Person;

@@ -20,6 +20,6 @@ export default class Position{
   public setSalary(salary: number): void { this.salary = salary; }
 
   public displayData(): string {
-    return `${this.position} (R$ ${this.salary.toFixed(2)})`;
+    return ` Cargo Atual: ${this.position} \n Função: ${this.description} \n Salário R$: ${this.salary.toFixed(2)}`;
   }
 }

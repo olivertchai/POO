@@ -1,21 +1,34 @@
-export default class EmployeeHistory{
-  private event!: string; // Promoção , Transferêmcia 
-  private eventDate! : Date;
+import Employee from "./employee";
+import { EventType } from "./enum/eventType";
 
-  public constructor(event: string, eventDate: Date) {
+export default class EmployeeHistory{
+  private event!: EventType; // Promoção , Transferêmcia 
+  private eventDate! : Date;
+  private employeeH:Employee[] = [];
+
+  public constructor(event: EventType, eventDate: Date) {
     this.event = event;
     this.eventDate = eventDate;
   }
     
   // Getters
-  public getEvent(): string { return this.event; }
+  public getEvent(): EventType { return this.event; }
   public getEventDate(): string { return this.eventDate.toLocaleDateString('pt-BR'); }
     
   // Setters
-  public setEvent(event: string): void { this.event = event; }
+  public setEvent(event: EventType): void { this.event = event; }
   public setEventDate(eventDate: Date): void { this.eventDate = eventDate; }
 
+  public pushHistory(employee:Employee) : void{
+    this.employeeH.push(employee);
+  }
+
   public displayData():string{
-    return `${this.event} Data do evento: ${this.eventDate.toLocaleDateString(`pt-BR`)} `;
+    if (!this.event){
+      return 'Sem eventos'
+    }
+    return ` Evento: ${this.event}\n Data do evento: ${this.eventDate.toLocaleDateString(`pt-BR`)} `;
   } 
+
+
 }

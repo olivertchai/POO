@@ -18,7 +18,7 @@ class Position {
     setDescription(description) { this.description = description; }
     setSalary(salary) { this.salary = salary; }
     displayData() {
-        return `${this.position} (R$ ${this.salary.toFixed(2)})`;
+        return ` Cargo Atual: ${this.position} \n Função: ${this.description} \n Salário R$: ${this.salary.toFixed(2)}`;
     }
 }
 exports.default = Position;

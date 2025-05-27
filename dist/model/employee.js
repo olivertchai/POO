@@ -7,16 +7,15 @@ const person_1 = __importDefault(require("./person"));
 class Employee extends person_1.default {
     telephone;
     email;
-    salary;
     gender;
     status;
     admissionDate;
     resignationDate;
     position;
     history = [];
-    constructor(name, CPF, salary, dateOfBirth, telephone, email, gender, status, admissionDate, position, resignationDate) {
+    useMealVouncher;
+    constructor(name, CPF, dateOfBirth, telephone, email, gender, status, admissionDate, position, resignationDate, useMealVouncher) {
         super(name, CPF, dateOfBirth);
-        this.salary = salary;
         this.telephone = telephone;
         this.email = email;
         this.gender = gender;
@@ -24,11 +23,11 @@ class Employee extends person_1.default {
         this.admissionDate = admissionDate;
         this.resignationDate = resignationDate;
         this.position = position;
+        this.useMealVouncher = useMealVouncher;
     }
     // Getters
     getTelephone() { return this.telephone; }
     getEmail() { return this.email; }
-    getSalary() { return this.salary; }
     getGender() { return this.gender; }
     getStatus() { return this.status; }
     getAdmissionDate() { return this.admissionDate.toLocaleDateString("pt-BR"); }
@@ -40,7 +39,6 @@ class Employee extends person_1.default {
     // Setters
     setTelephone(telephone) { this.telephone = telephone; }
     setEmail(email) { this.email = email; }
-    setSalary(salary) { this.salary = salary; }
     setGender(gender) { this.gender = gender; }
     setStatus(status) { this.status = status; }
     setAdmissionDate(admissionDate) { this.admissionDate = admissionDate; }
@@ -50,12 +48,15 @@ class Employee extends person_1.default {
     /** Adiciona uma entrada ao histórico de eventos */
     addHistory(entry) { this.history.push(entry); }
     displayData() {
-        return `${super.displayData()}, Cargo: ${this.position}, Status: ${this.status}`;
+        return ` ${super.displayData()} \n Cargo: ${this.position} \n Status: ${this.status}`;
     }
     getHoursWork(dateToday) {
         const end = dateToday ?? new Date(); //operador nullish coalescing (??): é um operador lógico que retorna o seu operando do lado direito quando o seu operador o lado esquerdo é null ou undefined 
         const diff = end.getTime() - this.admissionDate.getTime();
         return Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+    }
+    applyBenefit(benefit) {
+        benefit.applyBenefit(this);
     }
 }
 exports.default = Employee;

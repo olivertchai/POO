@@ -1,19 +1,22 @@
 // import MainController from "./controller/MainController";
-// import Database from "./db/Database";
+import Database from "./db/Database";
 import Employee from "./model/employee";
 import EmployeeHistory from "./model/employeeHistory";
 import Position from "./model/position";
 import { EventType } from "./model/enum/eventType";
 import { Gender } from "./model/enum/gender";
 import { StatusEmployee } from "./model/enum/StatusEmployee";
+import MealVoucher from "./model/mealVoucher";
+//-----------------------------------------------------------------
 
 
-// Cria um cargo
+
+
+
+
 const devPosition = new Position("Gerente", "Gerencia a loja", 5000);
-
-// Cria um histórico de evento
 const eh = new EmployeeHistory(EventType.PROMOCAO, new Date(2025, 11, 20));
-
+const vr = new MealVoucher();
 // Cria um funcionário
 const ep1 = new Employee(
   "Julia",
@@ -23,19 +26,20 @@ const ep1 = new Employee(
   "julia@example.com",
   Gender.F,
   StatusEmployee.ATIVO,
-  new Date(2023, 0, 1),
-  devPosition
+  new Date(2023, 1, 1),
+  devPosition,
+  new Date(2026,12,8),
+  true
 );
-
 // Adiciona o evento ao histórico de ep1
 ep1.addHistory(eh);
 
-// Testando saída
-console.log(devPosition.displayData());
-console.log(eh.displayData());
-console.log(ep1.displayData());
+console.log("------------------------------------------------------------------\n" + devPosition.displayData());
+console.log('------------------------------------------------------------------\n' + eh.displayData());
+console.log('------------------------------------------------------------------\n' + ep1.displayData());
 console.log("Tempo de casa (meses):", ep1.getHoursWork());
-console.log("Histórico de Julia:", ep1.getHistory().map(e => e.displayData()));
+//console.log("Histórico de Julia:", ep1.getHistory().map(e => e.displayData()));
+ep1.applyBenefit(vr);
 
 
 
@@ -71,41 +75,6 @@ console.log("Histórico de Julia:", ep1.getHistory().map(e => e.displayData()));
 
 
 
-
-
-
-
-
-
-
-
-
-
-// // Cria um cargo
-// const devPosition = new Position(
-//     "Gerente",
-//     "Gerencia a loja",
-//     5000
-//   );
-  
-//   // Cria um histórico de evento
-//   const eh = new EmployeeHistory(
-//     EventType.PROMOCAO,
-//     new Date(2025, 11, 20)
-//   );
-  
-//   // Instancia funcionário sem data de demissão
-//   const ep1 = new Employee(
-//     "Julia",
-//     "123.654.789-89",
-//     new Date(1989, 10, 8),
-//     42999885577,
-//     "julia@example.com",
-//     Gender.F,
-//     StatusEmployee.ATIVO,
-//     new Date(2023, 0, 1),
-//     devPosition
-//   );
   
 //   // Instancia funcionário com data de demissão
 //   const ep2 = new Employee(
@@ -120,9 +89,6 @@ console.log("Histórico de Julia:", ep1.getHistory().map(e => e.displayData()));
 //     devPosition,
 //     new Date(2024, 11, 31)
 //   );
-  
-//   // Adiciona o evento ao histórico de ep1
-//   ep1.addHistory(eh);
   
 //   // Testando saída
 //   console.log(devPosition.displayData());         // ex.: "Gerente (R$ 5000.00)"
@@ -140,6 +106,3 @@ console.log("Histórico de Julia:", ep1.getHistory().map(e => e.displayData()));
 
 // Criando um endereço
 // const endereco : Address = new Address("Rua das Flores", 123, "São Paulo");
-
-// // Criando um cliente
-// const cliente = new Cliente("João Silva", "123.456.789-00", endereco);

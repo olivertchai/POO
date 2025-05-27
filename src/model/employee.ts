@@ -1,7 +1,7 @@
 import Person from "./person";
 import Position from "./position";
 import EmployeeHistory from './employeeHistory';
-import { EventType } from './enum/eventType';
+import Benefit from "./benefit";
 import { Gender } from './enum/gender';
 import { StatusEmployee } from './enum/StatusEmployee';
 
@@ -14,6 +14,7 @@ export default class Employee extends Person{
     private resignationDate?: Date ; 
     private position: Position;                 
     private history: EmployeeHistory[] = [];
+    public useMealVouncher?: boolean;
    
 
     public constructor (
@@ -25,7 +26,7 @@ export default class Employee extends Person{
         gender: Gender,
         status: StatusEmployee,
         admissionDate: Date ,
-        position: Position
+        position: Position 
     );
 
     public constructor (
@@ -38,7 +39,8 @@ export default class Employee extends Person{
         status: StatusEmployee,
         admissionDate: Date ,
         position: Position ,
-        resignationDate: Date
+        resignationDate: Date ,
+        useMealVouncher:boolean
     );
 
     public constructor(
@@ -51,7 +53,8 @@ export default class Employee extends Person{
         status: StatusEmployee,
         admissionDate: Date,
         position: Position,
-        resignationDate?: Date
+        resignationDate?: Date , 
+        useMealVouncher?:boolean
     )
 
     {    
@@ -63,6 +66,7 @@ export default class Employee extends Person{
         this.admissionDate = admissionDate;
         this.resignationDate = resignationDate;
         this.position = position;
+        this.useMealVouncher = useMealVouncher;
     }
 
     // Getters
@@ -95,15 +99,13 @@ export default class Employee extends Person{
 
     public setResignationDate(resignationDate: Date): void { this.resignationDate = resignationDate; }
 
-    /** Retorna o histórico de eventos do funcionário */
+    // Retorna o histórico de eventos do funcionário 
     public getHistory(): EmployeeHistory[] { return this.history; }
 
-    /** Adiciona uma entrada ao histórico de eventos */
-    public addHistory(entry: EmployeeHistory): void { this.history.push(entry); }
 
-    public displayData(): string {
-        return `${super.displayData()}, Cargo: ${this.position}, Status: ${this.status}`;
-    }
+
+
+    //-------------------------------------------------------------------------------------------------------------
 
     // Sobre-carga de método: calcular tempo de empresa
     public getHoursWork():number; //Informa ao TS que existe uma versão de getHoursWork que retorna um number quando chamada sem argumentos.
@@ -112,5 +114,20 @@ export default class Employee extends Person{
         const end = dateToday ?? new Date(); //operador nullish coalescing (??): é um operador lógico que retorna o seu operando do lado direito quando o seu operador o lado esquerdo é null ou undefined 
         const diff = end.getTime() - this.admissionDate.getTime();
         return Math.floor(diff/ (1000 * 60 * 60 * 24 * 30));
+
+    }
+    
+    // Adiciona uma entrada ao histórico de eventos 
+    public addHistory(entry: EmployeeHistory): void { 
+        this.history.push(entry); 
+    }
+
+    public displayData(): string {
+        return ` ${super.displayData()} \n Cargo: ${this.position} \n Status: ${this.status}`;
+    }
+
+    //metodo pego da Classe Abstrata Benefit
+    public applyBenefit(benefit:Benefit):void{
+        benefit.applyBenefit(this);
     }
 }

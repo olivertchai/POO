@@ -1,0 +1,95 @@
+1. Classe abstrata: Funcionario
+Uma classe abstrata serve para definir comportamentos e propriedades comuns a vários tipos de funcionários, mas que nunca será instanciada diretamente.
+
+Exemplo:
+ts
+Copiar
+Editar
+abstract class Funcionario {
+  constructor(
+    public nome: string,
+    public cpf: string,
+    public salario: number
+  ) {}
+
+  // Método obrigatório para calcular bônus, mas cada tipo calcula de um jeito
+  abstract calcularBonus(): number;
+
+  // Método comum para todos
+  mostrarInfo() {
+    console.log(`Nome: ${this.nome} | CPF: ${this.cpf} | Salário: ${this.salario}`);
+  }
+}
+Herança:
+ts
+Copiar
+Editar
+class Gerente extends Funcionario {
+  calcularBonus(): number {
+    return this.salario * 0.3;
+  }
+}
+
+class Desenvolvedor extends Funcionario {
+  calcularBonus(): number {
+    return this.salario * 0.1;
+  }
+}
+2. Interface: IPermissao
+Interfaces definem um contrato que uma classe deve implementar. Por exemplo, funcionários podem ter permissões diferentes no sistema.
+
+ts
+Copiar
+Editar
+interface IPermissao {
+  podeAcessarSistema(): boolean;
+  podeEditarDados(): boolean;
+}
+Implementação nas classes:
+ts
+Copiar
+Editar
+class Gerente extends Funcionario implements IPermissao {
+  calcularBonus(): number {
+    return this.salario * 0.3;
+  }
+  
+  podeAcessarSistema(): boolean {
+    return true;
+  }
+
+  podeEditarDados(): boolean {
+    return true;
+  }
+}
+
+class Estagiario extends Funcionario implements IPermissao {
+  calcularBonus(): number {
+    return 0;
+  }
+
+  podeAcessarSistema(): boolean {
+    return true;
+  }
+
+  podeEditarDados(): boolean {
+    return false;
+  }
+}
+3. Outras interfaces para departamentos
+Por exemplo, interface para dados de contato:
+
+ts
+Copiar
+Editar
+interface IContato {
+  email: string;
+  telefone: string;
+  atualizarContato(email: string, telefone: string): void;
+}
+⚙️ Como usar no sistema?
+Use a classe abstrata para definir funcionários, garantindo métodos comuns, mas obrigando subclasses a implementarem particularidades.
+
+Use interfaces para definir capacidades ou contratos (como permissões, dados de contato, acesso a setores).
+
+Combine ambas para garantir flexibilidade e organização no sistema.

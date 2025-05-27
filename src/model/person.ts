@@ -1,7 +1,7 @@
-export default class Person {
-    protected name: string;
-    protected CPF: string;
-    protected dateOfBirth: Date;
+export default class Person implements IPessoa{
+    name: string;
+    CPF: string;
+    dateOfBirth: Date;
   
     constructor(name: string, CPF: string, dateOfBirth: Date) {
       this.name = name;
@@ -11,7 +11,7 @@ export default class Person {
   
     public getName(): string { return this.name; }
     public getCPF(): string { return this.CPF; }
-    public getDateOfBirth(): string { return this.dateOfBirth.toLocaleDateString('pt-BR'); }
+    public getDateOfBirth(): string { return this.dateOfBirth.toLocaleString('pt-BR'); }
 
     
     public setName(name: string): void {
@@ -26,6 +26,6 @@ export default class Person {
   
     // Método sobrescrito em subclasses
     public displayData(): string {
-      return `Nome: ${this.name}, CPF: ${this.CPF}`;
+      return `Nome: ${this.name} \n CPF: ${this.CPF} \n Data de Nascimento: ${this.dateOfBirth.toLocaleDateString(`pt-br`)} \n`; 
     }
   }
